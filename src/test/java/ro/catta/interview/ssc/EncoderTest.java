@@ -15,7 +15,8 @@ class EncoderTest {
 				Arguments.of("abbbcdddd", "a1b3c1d4"), //
 				Arguments.of("aaabbwwaa", "a3b2w2a2"), //
 				Arguments.of("a", "a1"), //
-				Arguments.of("", ""));
+				Arguments.of("aa", "a2") //
+		);
 	}
 
 	@ParameterizedTest
@@ -26,6 +27,20 @@ class EncoderTest {
 
 		// Act
 		String actual = underTest.encode(input);
+
+		// Assert
+		Assertions.assertEquals(expected, actual, () -> String.format("for input %s", input));
+
+	}
+
+	@ParameterizedTest
+	@MethodSource("testEncodeParams")
+	public void testEncodeWithStream(String input, String expected) {
+		// Arrange
+		Encoder underTest = new Encoder();
+
+		// Act
+		String actual = underTest.encodeWithStream(input);
 
 		// Assert
 		Assertions.assertEquals(expected, actual, () -> String.format("for input %s", input));
